@@ -48,6 +48,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.MyViewHolder> 
         myViewHolder.re_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //
                 String title = list.get(i).getTitle();
                 String imge = list.get(i).getImages().split("\\|")[0];
                 CacheBean cacheBean = new CacheBean();
@@ -55,8 +56,9 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.MyViewHolder> 
                 cacheBean.setTitle(title);
                 SqlUtils.getNewsBeanJsonUtils().insert(cacheBean);
                 //发送一个空值让适配器fragment执行
-                EventBus.getDefault().post("0");
-
+//                EventBus.getDefault().post("0");
+                //当我点击的时候存值并且回调当前的状态
+                listener.goodChange();//回调点击状态
             }
         });
     }
@@ -77,6 +79,14 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.MyViewHolder> 
             tv_title = itemView.findViewById(R.id.tv_title);
             re_main = itemView.findViewById(R.id.re_main);
         }
+    }
+
+    private GoodListener listener;
+    public void setGoodListener(GoodListener listener){
+        this.listener=listener;
+    }
+    public interface GoodListener{
+        void goodChange();
     }
 
 

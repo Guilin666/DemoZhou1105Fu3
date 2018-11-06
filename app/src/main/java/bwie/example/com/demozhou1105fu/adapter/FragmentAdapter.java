@@ -19,7 +19,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         super(fm);
         mFragments.add(new HomeFragment());
         mFragments.add(new MyFragment());
-
+        
     }
 
     @Override
@@ -37,4 +37,5 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mTitles[position];
     }
+
 }

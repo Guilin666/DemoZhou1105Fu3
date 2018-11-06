@@ -37,7 +37,7 @@ public class MyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_my, null);
         ButterKnife.bind(this,view);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -55,18 +55,25 @@ public class MyFragment extends Fragment {
         recycle_s.setAdapter(goodAdapter2);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        EventBus.getDefault().unregister(this);
+//    }
 
-
-    //回调
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(String msg) {
+    //使得重新查询
+    public  void setItem() {
         //重新获取
         List<CacheBean> list = SqlUtils.getNewsBeanJsonUtils().queryAll();
         goodAdapter2.setList(list);
     }
+
+
+//    //回调
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(String msg) {
+//        //重新获取
+//        List<CacheBean> list = SqlUtils.getNewsBeanJsonUtils().queryAll();
+//        goodAdapter2.setList(list);
+//    }
 }

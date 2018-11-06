@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <Button
+        android:id="@+id/btn_click"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="点击"
+        />
     <android.support.v4.view.ViewPager
         android:layout_weight="9"
         android:id="@+id/viewpager_main"

@@ -36,6 +36,12 @@ public class SellerAdapter extends RecyclerView.Adapter<SellerAdapter.MyViewHold
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         myViewHolder.recycle_child.setLayoutManager(staggeredGridLayoutManager);
         myViewHolder.recycle_child.setAdapter(goodAdapter);
+        goodAdapter.setGoodListener(new GoodAdapter.GoodListener() {
+            @Override
+            public void goodChange() {
+                listener.sellerChange();//执行回调
+            }
+        });
     }
 
     @Override
@@ -49,5 +55,15 @@ public class SellerAdapter extends RecyclerView.Adapter<SellerAdapter.MyViewHold
             super(itemView);
             recycle_child=itemView.findViewById(R.id.recycle_child);
         }
+    }
+
+    private SellerListener listener;
+
+    public void setSellerListener(SellerListener listener){
+        this.listener=listener;
+
+    }
+    public interface SellerListener{
+        void sellerChange();
     }
 }

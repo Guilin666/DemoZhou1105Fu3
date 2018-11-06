@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import bwie.example.com.demozhou1105fu.MainActivity;
 import bwie.example.com.demozhou1105fu.R;
 import bwie.example.com.demozhou1105fu.adapter.SellerAdapter;
 import bwie.example.com.demozhou1105fu.bean.GoodBean;
@@ -29,14 +30,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_home, null);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         doHttp();
 
         return view;
     }
 
     private void doHttp() {
-        OkUtils.getInstance().get("http://www.zhaoapi.cn/product/getCarts?uid=71").setOkLisener(new OkUtils.OkListener() {
+        new OkUtils().get("http://www.zhaoapi.cn/product/getCarts?uid=71").setOkLisener(new OkUtils.OkListener() {
             @Override
             public void success(String data) {
                 GoodBean goodBean = new Gson().fromJson(data, GoodBean.class);
@@ -45,7 +46,19 @@ public class HomeFragment extends Fragment {
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recycle_home.setLayoutManager(linearLayoutManager);
                 recycle_home.setAdapter(sellerAdapter);
+                //实例化接口
+                sellerAdapter.setSellerListener(new SellerAdapter.SellerListener() {
+                    @Override
+                    public void sellerChange() {
+                        if (getActivity() instanceof MainActivity) {
+                            ((MainActivity) getActivity()).setItem();
+                        }
+                    }
+                });
             }
         });
+
     }
+
+
 }
